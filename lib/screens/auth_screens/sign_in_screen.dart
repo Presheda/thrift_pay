@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thrift_pay/screens/auth_screens/sign_up_screen.dart';
 import 'package:thrift_pay/screens/home_screens/dashboard_screen.dart';
 import 'package:thrift_pay/theme/colors.dart';
@@ -7,20 +8,19 @@ import 'package:thrift_pay/utils/margin.dart';
 import 'package:thrift_pay/utils/navigators.dart';
 import 'package:thrift_pay/widgets/button_widgets.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key key}) : super(key: key);
+import 'signin_screen_controller.dart';
 
-  @override
-  _SignInScreenState createState() => _SignInScreenState();
-}
 
-class _SignInScreenState extends State<SignInScreen> {
-  TextEditingController numberController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+class SignInScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+
+    return GetBuilder<SignInScreenController>(
+        init: SignInScreenController(),
+        builder: (model){
+      return Scaffold(
         backgroundColor: colors.whiteColor,
         body: SingleChildScrollView(
           child: Padding(
@@ -44,26 +44,26 @@ class _SignInScreenState extends State<SignInScreen> {
                   style: w500Style(18, const Color(0xff595959)),
                 ),
                 const YMargin(50),
-                authField(numberController, false, "Enter your number"),
+                authField(model.numberController, false, "Enter your number"),
                 const YMargin(20),
-                authField(passwordController, true, "Enter your password"),
-                const YMargin(5),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text.rich(TextSpan(
-                        text: "Forgot password? ",
-                        style: w400Style(14, const Color(0xffA59E9E)),
-                        children: [
-                          TextSpan(
-                            text: "Recover ",
-                            style: w600Style(14, colors.primaryColor),
-                          ),
-                        ])),
-                  ),
-                ),
-                const YMargin(40),
+                authField(model.passwordController, true, "Enter your pin"),
+                // const YMargin(5),
+                // Align(
+                //   alignment: Alignment.bottomRight,
+                //   child: TextButton(
+                //     onPressed: () {},
+                //     child: Text.rich(TextSpan(
+                //         text: "Forgot password? ",
+                //         style: w400Style(14, const Color(0xffA59E9E)),
+                //         children: [
+                //           TextSpan(
+                //             text: "Recover ",
+                //             style: w600Style(14, colors.primaryColor),
+                //           ),
+                //         ])),
+                //   ),
+                // ),
+                const YMargin(70),
                 SizedBox(
                   height: 50,
                   width: double.maxFinite,
@@ -73,7 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     label: "Continue to ThriftPay",
                     radius: 5,
                     onP: () {
-                      AppNavigators.routeReplace(context, const DashboardScreen());
+                      model.signInClicked();
                     },
                   ),
                 ),
@@ -82,7 +82,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   alignment: Alignment.center,
                   child: TextButton(
                     onPressed: () {
-                      AppNavigators.routeReplace(context, const SignUpScreen());
+                      model.goRegisterScreen();
                     },
                     child: Text.rich(TextSpan(
                         text: "Don’t have an account? ",
@@ -99,8 +99,8 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
 

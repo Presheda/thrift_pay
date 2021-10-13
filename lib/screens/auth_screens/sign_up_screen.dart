@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thrift_pay/screens/auth_screens/additional_info.dart';
 import 'package:thrift_pay/screens/auth_screens/sign_in_screen.dart';
 import 'package:thrift_pay/theme/colors.dart';
@@ -7,24 +8,19 @@ import 'package:thrift_pay/utils/margin.dart';
 import 'package:thrift_pay/utils/navigators.dart';
 import 'package:thrift_pay/widgets/button_widgets.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key key}) : super(key: key);
+import 'signup_screen_controller.dart';
 
-  @override
-  _SignUpScreenState createState() => _SignUpScreenState();
-}
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  TextEditingController numberController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController bvnController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+
+class SignUpScreen extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return GetBuilder<SignUpScreenController>(
+        init: SignUpScreenController(),
+        builder: (model){
+      return Scaffold(
         backgroundColor: colors.whiteColor,
         body: SingleChildScrollView(
           child: Padding(
@@ -48,13 +44,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   style: w500Style(18, const Color(0xff595959)),
                 ),
                 const YMargin(40),
-                authField(nameController, false, "What is your name?"),
+                authField(model.nameController, false, "What is your name?"),
                 const YMargin(20),
-                authField(emailController, true, "Enter your email address"),
+                authField(model.emailController, true, "Enter your email address"),
                 const YMargin(20),
-                authField(numberController, true, "Enter your phone number"),
+                authField(model.numberController, true, "Enter your phone number"),
                 const YMargin(20),
-                authField(bvnController, true, "Enter your BVN"),
+                authField(model.bvnController, true, "Enter your BVN"),
                 const YMargin(40),
                 SizedBox(
                   height: 50,
@@ -65,7 +61,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     label: "Proceed",
                     radius: 5,
                     onP: () {
-                      AppNavigators.route(context, const AdditionalInfoScreen());
+
+                      model.goToAdditionalInfoScreen();
+
                     },
                   ),
                 ),
@@ -74,7 +72,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   alignment: Alignment.center,
                   child: TextButton(
                     onPressed: () {
-                      AppNavigators.routeReplace(context, const SignInScreen());
+                      model.goToSignInScreen();
                     },
                     child: Text.rich(TextSpan(
                         text: "Already have an account? ",
@@ -91,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

@@ -1,28 +1,29 @@
 class UserData {
-  String email;
-  String name;
-  String phone;
-  String bvn;
 
+  String firstName, lastName, phone;
+  int pin, agentCode;
 
-  UserData({this.email, this.name, this.phone, this.bvn});
+  UserData({
+      this.firstName, this.lastName, this.phone, this.pin, this.agentCode});
 
   factory UserData.fromMap(Map<String, dynamic> map) {
     return new UserData(
-      email: map['email'] as String,
-      name: map['name'] as String,
+      firstName: map['firstName'] as String,
+      lastName: map['lastName'] as String,
       phone: map['phone'] as String,
-      bvn: map['bvn'] as String,
+      pin: map['pin'] as int,
+      agentCode: map['agentCode'] as int,
     );
   }
 
   Map<String, dynamic> toMap() {
     // ignore: unnecessary_cast
     return {
-      'email': this.email,
-      'name': this.name,
+      'firstName': this.firstName,
+      'lastName': this.lastName,
       'phone': this.phone,
-      'bvn': this.bvn,
+      'pin': this.pin,
+      'agentCode': this.agentCode,
     } as Map<String, dynamic>;
   }
 }

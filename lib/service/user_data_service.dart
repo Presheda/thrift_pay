@@ -1,6 +1,21 @@
+import 'package:get/get.dart';
 import 'package:thrift_pay/datanodel/user_data.dart';
 
-abstract class UserDataService {
-  Future<void> saveUserData({UserData userData}) {}
+class UserDataService  extends GetConnect{
+
+
+
+
+
+  Future<void> saveUserData({UserData userData}) {
+
+
+  }
   Future<void> fetchUserData() {}
+
+  @override
+  void onInit() {
+
+    super.onInit();
+  }
 }
