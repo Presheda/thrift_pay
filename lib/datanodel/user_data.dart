@@ -1,29 +1,60 @@
 class UserData {
 
-  String firstName, lastName, phone;
-  int pin, agentCode;
+  String firstname, lastname, phone;
+  String pin, code;
+  String dob;
+
+  String type;
 
   UserData({
-      this.firstName, this.lastName, this.phone, this.pin, this.agentCode});
+      this.firstname, this.lastname, this.phone, this.pin, this.code, this.dob, this.type});
 
   factory UserData.fromMap(Map<String, dynamic> map) {
     return new UserData(
-      firstName: map['firstName'] as String,
-      lastName: map['lastName'] as String,
+      firstname: map['firstname'] as String,
+      lastname: map['lastname'] as String,
       phone: map['phone'] as String,
-      pin: map['pin'] as int,
-      agentCode: map['agentCode'] as int,
+      pin: map['pin'] as String,
+      code: map['code'] as String,
+      type: map['type'] as String,
+      dob: map['dob'] as String
     );
   }
 
   Map<String, dynamic> toMap() {
     // ignore: unnecessary_cast
     return {
-      'firstName': this.firstName,
-      'lastName': this.lastName,
+      'firstname': this.firstname,
+      'lastname': this.lastname,
       'phone': this.phone,
       'pin': this.pin,
-      'agentCode': this.agentCode,
+      'agent_code': this.code,
+      'dob' : this.dob,
+      'type' : this.type,
+    } as Map<String, dynamic>;
+  }
+}
+
+class AccountDetails {
+
+   String bankNname, bankCode, vnuban;
+
+   AccountDetails({this.bankNname, this.bankCode, this.vnuban});
+
+   factory AccountDetails.fromMap(Map<String, dynamic> map) {
+    return new AccountDetails(
+      bankNname: map['bank_name'] as String,
+      bankCode: map['bank_code'] as String,
+      vnuban: map['vnuban'] as String,
+    );
+  }
+
+   Map<String, dynamic> toMap() {
+    // ignore: unnecessary_cast
+    return {
+      'bank_name': this.bankNname,
+      'bank_code': this.bankCode,
+      'vnuban': this.vnuban,
     } as Map<String, dynamic>;
   }
 }

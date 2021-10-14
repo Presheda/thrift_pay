@@ -25,6 +25,7 @@ dependencies:
   another_flushbar: ^1.10.24
   google_fonts: 
   expandable: ^5.0.1
+  get_it: ^4.0.4
 
   flutter:
     sdk: flutter

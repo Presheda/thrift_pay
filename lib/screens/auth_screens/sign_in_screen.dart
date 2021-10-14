@@ -44,9 +44,13 @@ class SignInScreen extends StatelessWidget {
                   style: w500Style(18, const Color(0xff595959)),
                 ),
                 const YMargin(50),
-                authField(model.numberController, false, "Enter your number"),
+                authField(model.numberController, false, "Enter your number", keyboardType: TextInputType.number,
+                  enabled: model.enableField,
+                  maxLenght: 11,),
                 const YMargin(20),
-                authField(model.passwordController, true, "Enter your pin"),
+                authField(model.passwordController, false, "Enter your pin", keyboardType: TextInputType.number,
+                    enabled: model.enableField,
+                    maxLenght: 6),
                 // const YMargin(5),
                 // Align(
                 //   alignment: Alignment.bottomRight,
@@ -68,8 +72,10 @@ class SignInScreen extends StatelessWidget {
                   height: 50,
                   width: double.maxFinite,
                   child: ElevatedButtonWidget(
+
                     color: colors.primaryColor,
                     labelColor: colors.whiteColor,
+                    loading: model.loading,
                     label: "Continue to ThriftPay",
                     radius: 5,
                     onP: () {
@@ -104,12 +110,16 @@ class SignInScreen extends StatelessWidget {
   }
 }
 
-Widget authField(TextEditingController controller, bool isPassword, String hint, {Widget prefix}) {
+Widget authField(TextEditingController controller, bool isPassword, String hint,
+    {Widget prefix, TextInputType keyboardType, int maxLenght, bool enabled }) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(5),
     child: TextFormField(
       controller: controller,
       obscureText: isPassword,
+      keyboardType: keyboardType,
+     enabled: enabled != null  ? enabled : true,
+     maxLength:  maxLenght,
       decoration: InputDecoration(
         suffixIcon: prefix,
         fillColor: const Color(0xffF2F2F2),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thrift_pay/screens/auth_screens/sign_in_screen.dart';
 import 'package:thrift_pay/theme/colors.dart';
 import 'package:thrift_pay/theme/texts.dart';
 import 'package:thrift_pay/utils/margin.dart';
 import 'package:thrift_pay/widgets/button_widgets.dart';
+import 'package:thrift_pay/widgets/custom_snackbar.dart';
 
 class WithdrawalModal extends StatelessWidget {
   const WithdrawalModal({Key key}) : super(key: key);
@@ -33,23 +35,6 @@ class WithdrawalModal extends StatelessWidget {
                   const Color(0xff0C1141),
                 ),
               ),
-              const Spacer(),
-              Row(
-                children: [
-                  Text(
-                    "Wallet 1",
-                    style: w400Style(
-                      12,
-                      colors.primaryColor,
-                    ),
-                  ),
-                  const XMargin(5),
-                  const Icon(
-                    Icons.keyboard_arrow_down_outlined,
-                    color: Color(0xff0C1141),
-                  ),
-                ],
-              )
             ],
           ),
           const YMargin(20),
@@ -64,7 +49,7 @@ class WithdrawalModal extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "Select a bank",
+                    "Wema bank",
                     style: w400Style(14, const Color(0xffA59E9E)),
                   ),
                   const Spacer(),
@@ -75,9 +60,9 @@ class WithdrawalModal extends StatelessWidget {
                 ],
               )),
           const YMargin(20),
-          authField(null, false, "Enter your account number"),
+          authField(null, false, "0717872839", enabled: false),
           const YMargin(20),
-          authField(null, false, "Recipients name"),
+          authField(null, false, "John Doe", enabled: false),
           const YMargin(30),
           SizedBox(
             height: 50,
@@ -87,7 +72,14 @@ class WithdrawalModal extends StatelessWidget {
               labelColor: colors.whiteColor,
               label: "Withdraw",
               radius: 5,
-              onP: () {},
+              onP: () async {
+                Get.back();
+
+                await Future.delayed(Duration(milliseconds: 500));
+
+                CustomSnackBar.successSnackBar(
+                    title: "Your withdrawal will be processed shortly");
+              },
             ),
           ),
         ],
